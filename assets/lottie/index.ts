@@ -1,5 +1,5 @@
 export const Lottie = {
-  onboarding1: require('./onboarding_1.lottie'),
-  onboarding2: require('./onboarding_2.lottie'),
-  onboarding3: require('./onboarding_3.lottie'),
+  onboarding1: require('./onboarding_1.json'),
+  onboarding2: require('./onboarding_2.json'),
+  onboarding3: require('./onboarding_3.json'),
 };
