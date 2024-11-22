@@ -4,11 +4,15 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      colors: {
+        primary: '#0B2C47',
+        accent: '#81c784',
+      },
       fontFamily: {
-        InterRegular: ['InterRegular'],
-        InterMedium: ['InterMedium'],
-        InterSemiBold: ['InterSemiBold'],
-        InterBold: ['InterBold'],
+        NunitoRegular: ['NunitoRegular'],
+        NunitoMedium: ['NunitoMedium'],
+        NunitoSemiBold: ['NunitoSemiBold'],
+        NunitoBold: ['NunitoBold'],
       },
     },
   },
