@@ -1,22 +1,102 @@
+import { Ionicons } from '@expo/vector-icons';
+import StyledButton from '@src/core/components/styled/StyledButton';
+import StyledTextInput from '@src/core/components/styled/StyledTextInput';
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 const AddTravelPlan = () => {
-  const { styles } = useStyles(stylesheet);
+  const {
+    styles,
+    theme: { colors, margins },
+  } = useStyles(stylesheet);
 
-  return <View style={styles.container}></View>;
+  return (
+    <ScrollView contentContainerStyle={styles.contentContainer}>
+      <StyledTextInput
+        placeholder='e.g. Solo trek to ABC'
+        label='Give your travel plan a name'
+        iconLeft={
+          <Ionicons
+            size={20}
+            name='golf-outline'
+            color={colors.secondary}
+          />
+        }
+      />
+      <StyledTextInput
+        editable={false}
+        label='Start Date'
+        placeholder='Click to select date'
+        iconLeft={
+          <Ionicons
+            size={20}
+            name='calendar-outline'
+            color={colors.secondary}
+          />
+        }
+      />
+      <StyledTextInput
+        editable={false}
+        label='Start Point'
+        placeholder='Click the icon on the right'
+        iconLeft={
+          <Ionicons
+            size={20}
+            name='map-outline'
+            color={colors.secondary}
+          />
+        }
+        iconRight={
+          <Ionicons
+            size={20}
+            name='location'
+            color={colors.secondary}
+          />
+        }
+      />
+      <StyledTextInput
+        editable={false}
+        label='Destination'
+        placeholder='Click to select destination'
+        iconLeft={
+          <Ionicons
+            size={20}
+            name='map-outline'
+            color={colors.secondary}
+          />
+        }
+      />
+      <StyledTextInput
+        multiline
+        label='Note'
+        placeholder='e.g. I will be bringing my tent'
+        iconLeft={
+          <Ionicons
+            size={20}
+            name='create-outline'
+            color={colors.secondary}
+          />
+        }
+      />
+      <StyledButton
+        label='Submit'
+        iconName='navigate-sharp'
+        containerStyle={{ marginTop: margins.xxl }}
+      />
+    </ScrollView>
+  );
 };
 
 export default AddTravelPlan;
 
 const stylesheet = createStyleSheet(({ colors, margins }) => ({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
   contentContainer: {
     flexGrow: 1,
-    padding: margins.lg,
+    gap: margins.lg,
+    paddingTop: margins.xxl,
+    paddingBottom: margins.xxxl,
+    paddingHorizontal: margins.lg,
+    backgroundColor: colors.background,
   },
 }));
