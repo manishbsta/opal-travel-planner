@@ -26,11 +26,11 @@ const ProtectedLayout = () => {
     <Stack screenOptions={{ headerTitleStyle: HeaderTitleStyles }}>
       <Stack.Screen
         name='index'
-        options={{ title: 'Home' }}
+        options={{ title: 'Home', headerShown: false }}
       />
       <Stack.Screen
-        name='settings'
-        options={{ title: 'Settings' }}
+        name='add-travel-plan'
+        options={{ title: 'Add Travel Plan' }}
       />
     </Stack>
   );

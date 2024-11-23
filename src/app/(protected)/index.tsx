@@ -1,28 +1,52 @@
-import StyledText from '@src/core/components/styled/StyledText';
-import { clearSecureStorage } from '@src/utils/expo-secure-store';
+import ListEmptyComponent from '@src/core/components/ListEmptyComponent';
+import { useAppDispatch, useAppSelector } from '@src/store/hooks';
+import { Plan } from '@src/types/plan';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { FlatList, ListRenderItem, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 const Home = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = () => {
-    if (router.canDismiss()) {
-      router.dismissAll();
-    }
+  const { styles } = useStyles(stylesheet);
+  const { plans } = useAppSelector(s => s.app);
 
-    clearSecureStorage();
-    router.push('/onboarding');
+  const renderDestinationItem: ListRenderItem<Plan> = ({ item }) => {
+    return <View></View>;
   };
 
   return (
-    <View>
-      <TouchableOpacity onPress={handleSubmit}>
-        <StyledText>Log out</StyledText>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={plans}
+        keyExtractor={item => item.id}
+        renderItem={renderDestinationItem}
+        contentContainerStyle={styles.contentContainer}
+        ListEmptyComponent={() => (
+          <ListEmptyComponent
+            title='Nothing Yet!'
+            caption='Let’s get started by adding a new plan!'
+            btnLabel='Add New Plan'
+            onPress={() => router.push('/add-travel-plan')}
+          />
+        )}
+      />
+    </SafeAreaView>
   );
 };
+
+const stylesheet = createStyleSheet(({ colors, margins }) => ({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  contentContainer: {
+    flexGrow: 1,
+    padding: margins.lg,
+  },
+}));
 
 export default Home;
