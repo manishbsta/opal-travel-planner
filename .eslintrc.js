@@ -3,5 +3,6 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': 'error',
+    '@typescript-eslint/no-empty-object-type': 'off',
   },
 };

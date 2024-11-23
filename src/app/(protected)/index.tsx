@@ -1,11 +1,25 @@
+import StyledText from '@src/core/components/styled/StyledText';
+import { clearSecureStorage } from '@src/utils/expo-secure-store';
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 const Home = () => {
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    if (router.canDismiss()) {
+      router.dismissAll();
+    }
+
+    clearSecureStorage();
+    router.push('/onboarding');
+  };
+
   return (
-    <View className='flex-1 items-center justify-center'>
-      <TouchableOpacity className='rounded-lg bg-red-500 p-4 px-10'>
-        <Text className='text-white'>Log Out</Text>
+    <View>
+      <TouchableOpacity onPress={handleSubmit}>
+        <StyledText>Log out</StyledText>
       </TouchableOpacity>
     </View>
   );

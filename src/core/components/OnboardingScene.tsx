@@ -1,15 +1,14 @@
 import { wW } from '@src/utils/dimensions';
 import LottieView, { AnimationObject } from 'lottie-react-native';
 import React, { FC } from 'react';
-import { Text, View, ViewProps } from 'react-native';
+import { View, ViewProps } from 'react-native';
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
+import StyledText from './styled/StyledText';
 
 type OnboardingSceneProps = ViewProps & {
   asset: AnimationObject;
   title: string;
   description: string;
-  textContainerClassName?: string;
-  titleClassName?: string;
-  descriptionClassName?: string;
 };
 
 const OnboardingScene: FC<OnboardingSceneProps> = ({
@@ -17,15 +16,12 @@ const OnboardingScene: FC<OnboardingSceneProps> = ({
   title,
   description,
   style,
-  className,
-  textContainerClassName,
-  titleClassName,
-  descriptionClassName,
   ...props
 }) => {
+  const { styles } = useStyles(stylesheet);
+
   return (
     <View
-      className={`flex-1 ${className}`}
       style={[{ width: wW }, style]}
       {...props}>
       <LottieView
@@ -33,12 +29,30 @@ const OnboardingScene: FC<OnboardingSceneProps> = ({
         style={{ width: wW, height: wW }}
         source={asset}
       />
-      <View className={textContainerClassName}>
-        <Text className={titleClassName}>{title}</Text>
-        <Text className={descriptionClassName}>{description}</Text>
+      <View style={styles.textContainer}>
+        <StyledText style={styles.titleText}>{title}</StyledText>
+        <StyledText style={styles.descText}>{description}</StyledText>
       </View>
     </View>
   );
 };
+
+const stylesheet = createStyleSheet(({ margins, colors, font }) => ({
+  textContainer: {
+    paddingHorizontal: margins.xxl,
+    rowGap: margins.lg,
+  },
+  titleText: {
+    fontFamily: font.family.bold,
+    fontSize: font.sizes.lg,
+    textAlign: 'center',
+    color: colors.primary,
+  },
+  descText: {
+    fontFamily: font.family.regular,
+    fontSize: font.sizes.lg,
+    textAlign: 'center',
+  },
+}));
 
 export default OnboardingScene;

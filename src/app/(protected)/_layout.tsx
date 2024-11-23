@@ -1,3 +1,4 @@
+import { HeaderTitleStyles } from '@src/core/constants/navigation-styles';
 import { StorageKeys } from '@src/core/constants/storage-keys';
 import { getItemFromStorage } from '@src/utils/expo-secure-store';
 import { Redirect, Stack } from 'expo-router';
@@ -22,7 +23,7 @@ const ProtectedLayout = () => {
   if (!isFirstOpen) return <Redirect href='/onboarding' />;
 
   return (
-    <Stack>
+    <Stack screenOptions={{ headerTitleStyle: HeaderTitleStyles }}>
       <Stack.Screen
         name='index'
         options={{ title: 'Home' }}

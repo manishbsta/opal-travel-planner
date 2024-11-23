@@ -1,33 +1,30 @@
 import { Lottie } from '@assets/lottie';
 import { Ionicons } from '@expo/vector-icons';
 import OnboardingScene from '@src/core/components/OnboardingScene';
+import StyledText from '@src/core/components/styled/StyledText';
 import { StorageKeys } from '@src/core/constants/storage-keys';
 import { wW } from '@src/utils/dimensions';
 import { addItemToStorage } from '@src/utils/expo-secure-store';
 import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { cssInterop } from 'nativewind';
 import React, { useRef, useState } from 'react';
-import { Pressable, Text } from 'react-native';
+import { Pressable } from 'react-native';
 import Animated, {
   runOnJS,
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-cssInterop(Ionicons, {
-  className: {
-    target: 'style',
-    nativeStyleToProp: {
-      color: true,
-    },
-  },
-});
+import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 const Onboarding = () => {
   const router = useRouter();
   const svRef = useRef<Animated.ScrollView>(null);
+
+  const {
+    styles,
+    theme: { colors },
+  } = useStyles(stylesheet);
 
   const offsetX = useSharedValue(0);
   const [index, setIndex] = useState(0);
@@ -77,7 +74,7 @@ const Onboarding = () => {
   };
 
   return (
-    <SafeAreaView className='flex-1'>
+    <SafeAreaView style={styles.container}>
       <Animated.ScrollView
         ref={svRef}
         horizontal
@@ -85,48 +82,64 @@ const Onboarding = () => {
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
-        contentContainerClassName='flex-grow-1 pt-16'>
+        contentContainerStyle={styles.contentContainer}>
         <OnboardingScene
           asset={Lottie.onboarding1}
-          textContainerClassName='px-12 gap-4'
-          titleClassName='font-NunitoBold text-xl text-center text-primary'
-          descriptionClassName='font-NunitoRegular text-lg text-center'
           title='Your All-in-One Travel Planner'
           description='Effortlessly organize your trips. Add destinations, set dates, and jot down notes.'
         />
         <OnboardingScene
           asset={Lottie.onboarding2}
-          textContainerClassName='px-12 gap-4'
-          titleClassName='font-NunitoBold text-xl text-center text-primary'
-          descriptionClassName='font-NunitoRegular text-lg text-center'
           title='Your Trips, Your Way'
           description='Categorize your destinations (Upcoming, Completed, etc.) for better organization. View,
           edit, or delete trips as needed.'
         />
         <OnboardingScene
           asset={Lottie.onboarding3}
-          textContainerClassName='px-12 gap-4'
-          titleClassName='font-NunitoBold text-xl text-center text-primary'
-          descriptionClassName='font-NunitoRegular text-lg text-center'
           title='Plan Smarter, Travel Better'
           description='Stay informed with real-time weather updates. Use our built-in date picker to schedule
           your adventures.'
         />
       </Animated.ScrollView>
       <Pressable
-        className={`${readyToNavigate ? 'bg-primary' : 'bg-accent'} flex-row items-center justify-center gap-2 px-8 py-5`}
-        onPress={onNextPress}>
-        <Text className='text-center font-NunitoSemiBold text-xl text-white'>
-          {readyToNavigate ? 'Enter' : 'Next'}
-        </Text>
+        onPress={onNextPress}
+        style={[styles.btnContainer, readyToNavigate && { backgroundColor: colors.primary }]}>
+        <StyledText style={styles.btnText}>{readyToNavigate ? 'Enter' : 'Next'}</StyledText>
         <Ionicons
           size={20}
+          style={styles.btnIcon}
           name={readyToNavigate ? 'rocket-outline' : 'arrow-forward'}
-          className='text-xl text-white'
         />
       </Pressable>
     </SafeAreaView>
   );
 };
+
+const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
+    paddingTop: margins.xxxl,
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: margins.md,
+    paddingVertical: margins.xl,
+    backgroundColor: colors.accent,
+  },
+  btnIcon: {
+    color: colors.light,
+  },
+  btnText: {
+    textAlign: 'center',
+    color: colors.light,
+    fontSize: font.sizes.lg,
+    fontFamily: font.family.semiBold,
+  },
+}));
 
 export default Onboarding;

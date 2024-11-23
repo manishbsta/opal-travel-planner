@@ -6,5 +6,6 @@ export const HeaderTitleStyles: StyleProp<
     color?: string;
   }
 > = {
-  fontFamily: FontFamily.Medium,
+  fontSize: 22,
+  fontFamily: FontFamily.bold,
 };

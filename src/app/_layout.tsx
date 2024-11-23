@@ -1,7 +1,6 @@
-import '../../global.css';
+import '@src/unistyles';
 
 import RootProvider from '@src/core/providers/RootProvider';
-
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
