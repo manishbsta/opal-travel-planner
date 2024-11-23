@@ -17,8 +17,9 @@ const StyledText: FC<StyledTextProps> = ({ children, style, ...props }) => {
 
 export default StyledText;
 
-const stylesheet = createStyleSheet(({ font }) => ({
+const stylesheet = createStyleSheet(({ colors, font }) => ({
   default: {
     fontFamily: font.family.regular,
+    color: colors.typography,
   },
 }));

@@ -3,6 +3,7 @@ import { FontFamily } from '@assets/fonts';
 export const theme = {
   colors: {
     primary: '#0B2C47',
+    secondary: '#3949ab',
     accent: '#81c784',
     background: '#FEFEFA',
     typography: '#242124',
