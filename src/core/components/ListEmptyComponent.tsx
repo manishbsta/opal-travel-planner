@@ -41,7 +41,7 @@ const stylesheet = createStyleSheet(({ margins, font }) => ({
   container: {
     flex: 1,
     gap: margins.lg,
-    paddingTop: '25%',
+    paddingTop: '20%',
     padding: margins.lg,
     alignItems: 'center',
   },

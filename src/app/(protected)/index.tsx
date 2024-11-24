@@ -1,3 +1,4 @@
+import Greetings from '@src/core/components/Greetings';
 import ListEmptyComponent from '@src/core/components/ListEmptyComponent';
 import { useAppDispatch, useAppSelector } from '@src/store/hooks';
 import { Plan } from '@src/types/plan';
@@ -20,6 +21,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Greetings />
       <FlatList
         data={plans}
         keyExtractor={item => item.id}
@@ -41,11 +43,12 @@ const Home = () => {
 const stylesheet = createStyleSheet(({ colors, margins }) => ({
   container: {
     flex: 1,
+    padding: margins.lg,
     backgroundColor: colors.background,
   },
   contentContainer: {
     flexGrow: 1,
-    padding: margins.lg,
+    paddingBottom: margins.xxxl,
   },
 }));
 

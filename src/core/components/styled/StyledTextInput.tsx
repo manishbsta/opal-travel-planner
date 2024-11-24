@@ -19,6 +19,7 @@ type StyledTextInputProps = {
   placeholder?: string;
   multiline?: boolean;
   editable?: boolean;
+  autoFocus?: boolean;
   secureTextEntry?: boolean;
   onChangeText?: (text: string) => void;
   onPress?: () => void;
@@ -38,6 +39,7 @@ const StyledTextInput: FC<StyledTextInputProps> = ({
   placeholder,
   multiline,
   editable,
+  autoFocus,
   secureTextEntry,
   onChangeText,
   onPress,
@@ -79,6 +81,7 @@ const StyledTextInput: FC<StyledTextInputProps> = ({
         ]}>
         {iconLeft ? <View style={styles.iconLeftContainer}>{iconLeft}</View> : null}
         <TextInput
+          autoFocus={autoFocus}
           value={value}
           editable={editable}
           multiline={multiline}
