@@ -15,6 +15,7 @@ type StyledTextInputProps = {
   value?: string;
   label?: string;
   error?: string;
+  required?: boolean;
   placeholder?: string;
   multiline?: boolean;
   editable?: boolean;
@@ -33,6 +34,7 @@ const StyledTextInput: FC<StyledTextInputProps> = ({
   value,
   label,
   error,
+  required,
   placeholder,
   multiline,
   editable,
@@ -60,9 +62,13 @@ const StyledTextInput: FC<StyledTextInputProps> = ({
   return (
     <View style={[styles.container, containerStyle]}>
       {label ? (
-        <StyledText style={[styles.label, isInputFocused && { color: colors.primary }, labelStyle]}>
-          {label}
-        </StyledText>
+        <View style={styles.labelRow}>
+          <StyledText
+            style={[styles.label, isInputFocused && { color: colors.primary }, labelStyle]}>
+            {label}
+          </StyledText>
+          {required ? <StyledText style={styles.asterick}> *</StyledText> : null}
+        </View>
       ) : null}
       <Pressable
         onPress={onPress}
@@ -104,9 +110,18 @@ const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
     width: '100%',
     flexDirection: 'column',
   },
+  labelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   label: {
     marginBottom: margins.sm,
     fontFamily: font.family.semiBold,
+  },
+  asterick: {
+    color: colors.error,
+    fontFamily: font.family.bold,
+    fontSize: font.sizes.lg,
   },
   inputRow: {
     flexDirection: 'row',
@@ -118,7 +133,7 @@ const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
   input: {
     flex: 1,
     paddingVertical: margins.lg,
-    paddingLeft: margins.md,
+    paddingHorizontal: margins.md,
     fontFamily: font.family.semiBold,
   },
   iconLeftContainer: {

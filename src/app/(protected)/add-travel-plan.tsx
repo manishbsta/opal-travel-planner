@@ -14,6 +14,7 @@ const AddTravelPlan = () => {
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <StyledTextInput
+        required
         placeholder='e.g. Solo trek to ABC'
         label='Give your travel plan a name'
         iconLeft={
@@ -25,6 +26,7 @@ const AddTravelPlan = () => {
         }
       />
       <StyledTextInput
+        required
         editable={false}
         label='Start Date'
         placeholder='Click to select date'
@@ -37,6 +39,7 @@ const AddTravelPlan = () => {
         }
       />
       <StyledTextInput
+        required
         editable={false}
         label='Start Point'
         placeholder='Click the icon on the right'
@@ -56,6 +59,7 @@ const AddTravelPlan = () => {
         }
       />
       <StyledTextInput
+        required
         editable={false}
         label='Destination'
         placeholder='Click to select destination'
