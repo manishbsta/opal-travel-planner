@@ -21,6 +21,7 @@ const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
   container: {
     gap: margins.sm,
     padding: margins.lg,
+    paddingVertical: margins.xl,
     borderRadius: margins.md,
     backgroundColor: colors.surface,
     boxShadow: '0 2 10 rgba(0, 0, 0, 0.1)',

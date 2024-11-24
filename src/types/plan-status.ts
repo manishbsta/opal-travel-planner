@@ -1,6 +1,6 @@
 export enum PlanStatus {
   Completed = 'Completed',
-  Upcoming = 'Ppcoming',
+  Upcoming = 'Upcoming',
   InProgress = 'In-Progress',
   Canceled = 'Canceled',
 }
