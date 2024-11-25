@@ -32,12 +32,6 @@
     "plugins": [
       "expo-router",
       [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Allow Travel Planner to use your location."
-        }
-      ],
-      [
         "expo-font",
         {
           "fonts": [
