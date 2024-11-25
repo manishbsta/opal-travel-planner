@@ -28,12 +28,24 @@ const Home = () => {
         style={styles.planItem}
         onPress={() => router.push(`/travel-plan-details/${plan.id}`)}>
         <View style={styles.row}>
-          <StyledText style={styles.destination}>{plan.destination.name}</StyledText>
+          <StyledText
+            style={styles.name}
+            numberOfLines={1}>
+            {plan.name}
+          </StyledText>
           <Ionicons
             size={20}
             name='chevron-forward-sharp'
             color={colors.success}
           />
+        </View>
+        <View style={styles.row}>
+          <Ionicons
+            name='location'
+            size={16}
+            color={colors.success}
+          />
+          <StyledText numberOfLines={1}>{plan.destination.name}</StyledText>
         </View>
         <View style={styles.row}>
           <Ionicons
@@ -46,16 +58,6 @@ const Home = () => {
         <View style={[styles.statusContainer, { backgroundColor: getStatusColor(plan.status) }]}>
           <StyledText style={[styles.status]}>{plan.status}</StyledText>
         </View>
-        {plan.note ? (
-          <View style={styles.row}>
-            <Ionicons
-              name='chatbox-ellipses-outline'
-              size={16}
-              color={colors.success}
-            />
-            <StyledText style={styles.note}>{plan.note}</StyledText>
-          </View>
-        ) : null}
       </Pressable>
     );
   };
@@ -95,18 +97,18 @@ const Home = () => {
 const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
   container: {
     flex: 1,
-    padding: margins.lg,
     backgroundColor: colors.background,
   },
   contentContainer: {
     flexGrow: 1,
+    padding: margins.lg,
     paddingBottom: margins.xxxl + margins.xxxl,
     gap: margins.lg,
   },
   headerText: {
     fontFamily: font.family.bold,
     fontSize: font.sizes.xl,
-    marginVertical: margins.lg,
+    margin: margins.lg,
   },
   planItem: {
     backgroundColor: colors.surface,
@@ -122,7 +124,7 @@ const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
     alignItems: 'center',
     gap: margins.sm,
   },
-  destination: {
+  name: {
     flex: 1,
     fontSize: font.sizes.lg,
     fontFamily: font.family.bold,

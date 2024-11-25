@@ -42,6 +42,7 @@ const AddTravelPlan = () => {
 
     const payload: Plan = {
       id: Date.now().toString(),
+      name,
       note,
       start_date: startDate!,
       status: PlanStatus.Upcoming,

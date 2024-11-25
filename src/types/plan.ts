@@ -4,6 +4,7 @@ import { PlanStatus } from './plan-status';
 
 export type Plan = {
   id: string;
+  name: string;
   note: string;
   start_date: Date;
   status: PlanStatus;
