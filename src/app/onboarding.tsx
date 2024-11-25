@@ -70,7 +70,7 @@ const Onboarding = () => {
     }
 
     mmkv.set(StorageKeys.IS_FIRST_APP_OPEN, false);
-    router.push('/');
+    router.replace('/');
   };
 
   return (
