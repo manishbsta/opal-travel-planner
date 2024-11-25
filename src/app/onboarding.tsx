@@ -4,7 +4,7 @@ import OnboardingScene from '@src/core/components/OnboardingScene';
 import StyledText from '@src/core/components/styled/StyledText';
 import { StorageKeys } from '@src/core/constants/storage-keys';
 import { wW } from '@src/utils/dimensions';
-import { addItemToStorage } from '@src/utils/expo-secure-store';
+import { mmkv } from '@src/utils/mmkv';
 import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
@@ -69,7 +69,7 @@ const Onboarding = () => {
       router.dismissAll();
     }
 
-    addItemToStorage(StorageKeys.IS_FIRST_APP_OPEN, false);
+    mmkv.set(StorageKeys.IS_FIRST_APP_OPEN, false);
     router.push('/');
   };
 

@@ -1,26 +1,26 @@
 import { HeaderTitleStyles } from '@src/core/constants/navigation-styles';
 import { StorageKeys } from '@src/core/constants/storage-keys';
-import { getItemFromStorage } from '@src/utils/expo-secure-store';
+import { mmkv } from '@src/utils/mmkv';
 import { Redirect, Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 
 const ProtectedLayout = () => {
-  const [isReady, setIsReady] = useState(true);
-  const [isFirstOpen, setIsFirstOpen] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [isFirstAppOpen, setIsFirstAppOpen] = useState(false);
 
   useEffect(() => {
-    const getDataFromStorage = async () => {
-      const isFirstAppOpen = await getItemFromStorage(StorageKeys.IS_FIRST_APP_OPEN);
-      if (isFirstAppOpen) setIsFirstOpen(true);
-      setIsReady(false);
-    };
-
-    getDataFromStorage();
+    const isFirstOpen = mmkv.getBoolean(StorageKeys.IS_FIRST_APP_OPEN);
+    if (isFirstOpen === undefined) {
+      setIsFirstAppOpen(true);
+    } else {
+      setIsFirstAppOpen(isFirstOpen);
+    }
+    setIsReady(true);
   }, []);
 
-  if (isReady) return null;
+  if (!isReady) return null;
 
-  if (!isFirstOpen) return <Redirect href='/onboarding' />;
+  if (isFirstAppOpen) return <Redirect href='/onboarding' />;
 
   return (
     <Stack screenOptions={{ headerTitleStyle: HeaderTitleStyles }}>
@@ -38,7 +38,11 @@ const ProtectedLayout = () => {
       />
       <Stack.Screen
         name='travel-plan-details/[id]'
-        options={{ title: 'Plan Details' }}
+        options={{ title: 'Travel Details' }}
+      />
+      <Stack.Screen
+        name='travel-plan-map/[id]'
+        options={{ title: 'Travel Map' }}
       />
     </Stack>
   );

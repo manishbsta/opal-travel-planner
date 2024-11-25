@@ -4,7 +4,7 @@ import { StorageKeys } from '@src/core/constants/storage-keys';
 import RootProvider from '@src/core/providers/RootProvider';
 import { useAppDispatch } from '@src/store/hooks';
 import { setPlans } from '@src/store/slices/app.slice';
-import { getItemFromStorage } from '@src/utils/expo-secure-store';
+import { mmkv } from '@src/utils/mmkv';
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -35,7 +35,7 @@ const AppNavigation = () => {
 
   useEffect(() => {
     const hydration = async () => {
-      const plans = await getItemFromStorage(StorageKeys.PLANS);
+      const plans = mmkv.getString(StorageKeys.PLANS);
       if (plans) dispatch(setPlans(plans));
     };
 
