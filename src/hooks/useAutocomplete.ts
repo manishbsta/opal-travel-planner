@@ -1,3 +1,4 @@
+import { Urls } from '@src/core/constants/urls';
 import { Location } from '@src/types/location';
 import axios, { isAxiosError } from 'axios';
 import { useCallback, useState } from 'react';
@@ -12,10 +13,8 @@ export const useAutocomplete = () => {
     setError(null);
 
     const results: Location[] = [];
-    const URL = 'https://api.geoapify.com/v1/geocode/autocomplete';
-
     try {
-      const response = await axios.get(URL, {
+      const response = await axios.get(Urls.geoApifyAutocomplete, {
         params: {
           text: query,
           apiKey: '1dac3902cd1b49c6a38c5ab4da48ce9c',

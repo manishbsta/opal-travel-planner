@@ -50,8 +50,9 @@ const PlacesAutocompleteModal: FC<PlacesAutocompleteModalProps> = ({
     <Modal
       visible={isVisible}
       transparent={true}
+      animationType='slide'
       statusBarTranslucent={true}
-      animationType='slide'>
+      onRequestClose={() => onClose()}>
       <View style={styles.modalContent}>
         <Pressable
           onPress={handleBackdropPress}
