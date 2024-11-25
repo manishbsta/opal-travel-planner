@@ -2,9 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import LoadingBottomSheet from '@src/core/components/LoadingBottomSheet';
 import StyledButton from '@src/core/components/styled/StyledButton';
 import StyledText from '@src/core/components/styled/StyledText';
+import UpdatePlanStatusSheet from '@src/core/components/UpdatePlanStatusSheet';
 import useGenerateActivities from '@src/hooks/useGenerateActivities';
 import { useAppSelector } from '@src/store/hooks';
 import { Plan } from '@src/types/plan';
+import { PlanStatus } from '@src/types/plan-status';
 import { getStatusColor } from '@src/utils/status-color';
 import dayjs from 'dayjs';
 import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
@@ -15,6 +17,8 @@ import { createStyleSheet, useStyles } from 'react-native-unistyles';
 const TravelPlanDetails = () => {
   const navigation = useNavigation();
   const params = useLocalSearchParams();
+
+  const [showStatusSelection, setShowStatusSelection] = React.useState(false);
 
   const {
     styles,
@@ -52,14 +56,16 @@ const TravelPlanDetails = () => {
         contentContainerStyle={styles.contentContainer}>
         <View style={[styles.header, { backgroundColor: getStatusColor(plan.status) }]}>
           <StyledText style={styles.destination}>{plan.name}</StyledText>
-          <View style={styles.statusBadge}>
+          <Pressable
+            style={styles.statusBadge}
+            onPress={() => setShowStatusSelection(true)}>
             <StyledText style={styles.statusText}>{plan.status}</StyledText>
             <Ionicons
               name='chevron-down-circle-outline'
               size={20}
               color={colors.typography}
             />
-          </View>
+          </Pressable>
         </View>
         <View style={styles.detailsContainer}>
           <View style={styles.infoContainer}>
@@ -103,11 +109,18 @@ const TravelPlanDetails = () => {
             <StyledText style={styles.mapTitle}>Activities:</StyledText>
             <View style={styles.activitiesCard}>
               {plan.activities.length === 0 ? (
-                <View style={styles.emptyActivitiesContainer}>
+                <View
+                  style={[
+                    styles.emptyActivitiesContainer,
+                    { alignItems: 'center', justifyContent: 'center' },
+                  ]}>
                   <StyledText style={styles.mapText}>
                     {error ? error : 'No activities generated!'}
                   </StyledText>
                   <StyledButton
+                    disabled={
+                      plan.status === PlanStatus.Completed || plan.status === PlanStatus.Canceled
+                    }
                     label='Generate'
                     iconName='sparkles'
                     onPress={() => generateActivities(plan)}
@@ -145,6 +158,14 @@ const TravelPlanDetails = () => {
         </View>
       </ScrollView>
       {loading ? <LoadingBottomSheet /> : null}
+      {plan && showStatusSelection ? (
+        <UpdatePlanStatusSheet
+          planId={plan.id}
+          onClose={() => {
+            setShowStatusSelection(false);
+          }}
+        />
+      ) : null}
     </View>
   );
 };
@@ -239,9 +260,11 @@ const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
   },
   mapText: {
     fontSize: font.sizes.lg,
+    textAlign: 'center',
   },
   emptyActivitiesContainer: {
     gap: margins.lg,
+    marginVertical: margins.xl,
   },
   activityContainer: {
     display: 'flex',

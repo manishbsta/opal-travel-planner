@@ -44,6 +44,10 @@ const ProtectedLayout = () => {
         name='travel-plan-map/[id]'
         options={{ title: 'Travel Map' }}
       />
+      <Stack.Screen
+        name='edit-travel-plan/[id]'
+        options={{ title: 'Edit Travel Plan' }}
+      />
     </Stack>
   );
 };

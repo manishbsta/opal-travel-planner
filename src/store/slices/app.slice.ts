@@ -34,7 +34,16 @@ const appSlice = createSlice({
       const index = state.plans.findIndex(p => p.id === payload.id);
 
       if (index >= 0) {
-        state.plans[index] = payload;
+        state.plans[index] = { ...state.plans[index], ...payload };
+        mmkv.set(StorageKeys.PLANS, JSON.stringify(state.plans));
+      }
+    },
+    updatePlanStatus: (state, action: PayloadAction<string>) => {
+      const { id, status } = JSON.parse(action.payload);
+      const index = state.plans.findIndex(p => p.id === id);
+
+      if (index >= 0) {
+        state.plans[index].status = status;
         mmkv.set(StorageKeys.PLANS, JSON.stringify(state.plans));
       }
     },
@@ -53,7 +62,14 @@ const appSlice = createSlice({
   },
 });
 
-export const { clearStorage, setPlans, setDestination, addPlan, deletePlan, updatePlan } =
-  appSlice.actions;
+export const {
+  clearStorage,
+  setPlans,
+  setDestination,
+  addPlan,
+  deletePlan,
+  updatePlan,
+  updatePlanStatus,
+} = appSlice.actions;
 
 export const appReducer = appSlice.reducer;

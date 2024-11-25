@@ -5,6 +5,7 @@ import { createStyleSheet, useStyles } from 'react-native-unistyles';
 import StyledText from './StyledText';
 
 type StyledButtonProps = {
+  variant?: 'primary' | 'secondary';
   label: string;
   onPress?: () => void;
   disabled?: boolean;
@@ -17,6 +18,7 @@ type StyledButtonProps = {
 
 const ICON_SIZE = 18;
 const StyledButton: FC<StyledButtonProps> = ({
+  variant = 'primary',
   onPress,
   label,
   disabled,
@@ -38,6 +40,7 @@ const StyledButton: FC<StyledButtonProps> = ({
       style={({ pressed }) => [
         styles.container,
         pressed && { backgroundColor: colors.secondary },
+        variant === 'secondary' && styles.secondaryVariantContainer,
         containerStyle,
         disabled && { backgroundColor: colors.disabled },
         iconPosition === 'right' && { flexDirection: 'row-reverse' },
@@ -73,6 +76,13 @@ const stylesheet = createStyleSheet(({ colors, margins, font }) => ({
     paddingHorizontal: margins.xl,
     borderRadius: margins.sm,
     overflow: 'hidden',
+  },
+  secondaryVariantContainer: {
+    borderWidth: 1,
+    backgroundColor: 'transparent',
+    borderColor: colors.primary,
+    paddingVertical: margins.lg - 1,
+    paddingHorizontal: margins.xl - 1,
   },
   icon: {
     color: colors.light,

@@ -1,8 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
+import DeletePlanModal from '@src/core/components/DeletePlanModal';
 import Greetings from '@src/core/components/Greetings';
 import ListEmptyComponent from '@src/core/components/ListEmptyComponent';
+import MenuBottomSheet from '@src/core/components/MenuBottomSheet';
 import StyledButton from '@src/core/components/styled/StyledButton';
 import StyledText from '@src/core/components/styled/StyledText';
+import UpdatePlanStatusSheet from '@src/core/components/UpdatePlanStatusSheet';
 import { useAppSelector } from '@src/store/hooks';
 import { Plan } from '@src/types/plan';
 import { getStatusColor } from '@src/utils/status-color';
@@ -21,11 +24,19 @@ const Home = () => {
     theme: { colors },
   } = useStyles(stylesheet);
   const { plans } = useAppSelector(s => s.app);
+  const [showMenu, setShowMenu] = React.useState(false);
+  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+  const [showStatusSelection, setShowStatusSelection] = React.useState(false);
+  const [activePlanId, setActivePlanId] = React.useState<string | null>(null);
 
   const renderDestinationItem: ListRenderItem<Plan> = ({ item: plan }) => {
     return (
       <Pressable
         style={styles.planItem}
+        onLongPress={() => {
+          setShowMenu(true);
+          setActivePlanId(plan.id);
+        }}
         onPress={() => router.push(`/travel-plan-details/${plan.id}`)}>
         <View style={styles.row}>
           <StyledText
@@ -90,6 +101,34 @@ const Home = () => {
           />
         </View>
       )}
+      {activePlanId && showMenu ? (
+        <MenuBottomSheet
+          planId={activePlanId}
+          onClose={() => setShowMenu(false)}
+          onDelete={() => setShowDeleteModal(true)}
+          onChangeStatus={() => setShowStatusSelection(true)}
+        />
+      ) : null}
+      {activePlanId && showStatusSelection ? (
+        <UpdatePlanStatusSheet
+          planId={activePlanId}
+          onClose={() => {
+            setActivePlanId(null);
+            setShowStatusSelection(false);
+          }}
+        />
+      ) : null}
+      {activePlanId ? (
+        <DeletePlanModal
+          planId={activePlanId}
+          isVisible={showDeleteModal}
+          closeOnBackdropPress={false}
+          onClose={() => {
+            setActivePlanId(null);
+            setShowDeleteModal(false);
+          }}
+        />
+      ) : null}
     </SafeAreaView>
   );
 };

@@ -4,3 +4,4 @@ node_modules
 
 # metro config
 metro.config.js
+expo-env.d.ts
