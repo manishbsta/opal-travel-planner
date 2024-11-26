@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { StorageKeys } from '@src/core/constants/storage-keys';
 import { Location } from '@src/types/location';
 import { Plan } from '@src/types/plan';
+import { calculateDistance } from '@src/utils/calculate-distance';
 import { mmkv } from '@src/utils/mmkv';
 import { AppState } from './types';
 
@@ -30,11 +31,31 @@ const appSlice = createSlice({
       state.destination = action.payload;
     },
     updatePlan: (state, action: PayloadAction<string>) => {
-      const payload = JSON.parse(action.payload) as Plan;
+      const payload = JSON.parse(action.payload) as Omit<Plan, 'activities'>;
       const index = state.plans.findIndex(p => p.id === payload.id);
 
       if (index >= 0) {
-        state.plans[index] = { ...state.plans[index], ...payload };
+        const distance = calculateDistance(
+          {
+            lat: state.plans[index].destination.latitude,
+            lng: state.plans[index].destination.longitude,
+          },
+          {
+            lat: payload.destination.latitude,
+            lng: payload.destination.longitude,
+          },
+        );
+
+        console.log({ distance });
+
+        // check if destination has changed by more than 4 km
+        // if so reset activities
+        if (distance > 4) {
+          state.plans[index] = { ...payload, activities: [] };
+        } else {
+          state.plans[index] = { ...state.plans[index], ...payload };
+        }
+
         mmkv.set(StorageKeys.PLANS, JSON.stringify(state.plans));
       }
     },
