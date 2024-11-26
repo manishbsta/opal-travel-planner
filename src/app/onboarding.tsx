@@ -99,7 +99,7 @@ const Onboarding = () => {
         <OnboardingScene
           asset={Lottie.onboarding3}
           title='Plan Smarter, Travel Better'
-          description="Stay organized with one-tap activities generation. Use our in-built AI that help you generate to-do's in and around your destination."
+          description="Stay organized with one-tap activities generation. Use our in-built AI that helps you generate to-do's in and around your destination."
         />
       </Animated.ScrollView>
       <Pressable
