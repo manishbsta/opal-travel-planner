@@ -1,3 +1,4 @@
+import Splash from '@src/core/components/Splash';
 import { HeaderTitleStyles } from '@src/core/constants/navigation-styles';
 import { StorageKeys } from '@src/core/constants/storage-keys';
 import { mmkv } from '@src/utils/mmkv';
@@ -15,10 +16,17 @@ const ProtectedLayout = () => {
     } else {
       setIsFirstAppOpen(isFirstOpen);
     }
-    setIsReady(true);
+
+    const timeout = setTimeout(() => {
+      setIsReady(true);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
 
-  if (!isReady) return null;
+  if (!isReady) return <Splash />;
 
   if (isFirstAppOpen) return <Redirect href='/onboarding' />;
 

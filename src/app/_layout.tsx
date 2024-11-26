@@ -6,11 +6,9 @@ import { useAppDispatch } from '@src/store/hooks';
 import { setPlans } from '@src/store/slices/app.slice';
 import { mmkv } from '@src/utils/mmkv';
 import { Slot } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 
-SplashScreen.preventAutoHideAsync();
 const AppLayout = () => {
   return (
     <RootProvider>
@@ -22,16 +20,6 @@ const AppLayout = () => {
 
 const AppNavigation = () => {
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      SplashScreen.hideAsync();
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
 
   useEffect(() => {
     const hydration = async () => {
