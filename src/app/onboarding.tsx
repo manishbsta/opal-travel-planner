@@ -97,8 +97,7 @@ const Onboarding = () => {
         <OnboardingScene
           asset={Lottie.onboarding3}
           title='Plan Smarter, Travel Better'
-          description='Stay informed with real-time weather updates. Use our built-in date picker to schedule
-          your adventures.'
+          description="Stay organized with one-tap activities generation. Use our in-built AI that help you generate to-do's in and around your destination."
         />
       </Animated.ScrollView>
       <Pressable

@@ -46,8 +46,6 @@ const appSlice = createSlice({
           },
         );
 
-        console.log({ distance });
-
         // check if destination has changed by more than 4 km
         // if so reset activities
         if (distance > 4) {
