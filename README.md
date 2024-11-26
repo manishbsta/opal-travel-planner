@@ -20,4 +20,5 @@ For running the debug session locally in your set-up, follow these three command
 - Adding, Editing & Deleting Travel Plans (Accessible on Long-Press on the Travel Plan Items).
 - Travel Plans categorization and (Status) update
 - Use of AI for generating dynamic activities
+- Use of Geoapify for autocompleting/searching locations
 - Map View for destination and activities
