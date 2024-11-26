@@ -56,7 +56,11 @@ const Home = () => {
             size={16}
             color={colors.success}
           />
-          <StyledText numberOfLines={1}>{plan.destination.name}</StyledText>
+          <StyledText
+            style={{ flex: 1 }}
+            numberOfLines={1}>
+            {plan.destination.name}
+          </StyledText>
         </View>
         <View style={styles.row}>
           <Ionicons

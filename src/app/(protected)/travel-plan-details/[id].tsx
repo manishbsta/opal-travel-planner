@@ -11,7 +11,7 @@ import { getStatusColor } from '@src/utils/status-color';
 import dayjs from 'dayjs';
 import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useEffect } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, TouchableOpacity, View } from 'react-native';
 import { createStyleSheet, useStyles } from 'react-native-unistyles';
 
 const TravelPlanDetails = () => {
@@ -44,6 +44,24 @@ const TravelPlanDetails = () => {
       })();
     }
   }, [navigation, params.id, plans]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Link
+          href={`/edit-travel-plan/${params.id}`}
+          asChild>
+          <TouchableOpacity>
+            <Ionicons
+              name='pencil'
+              size={24}
+              color={colors.secondary}
+            />
+          </TouchableOpacity>
+        </Link>
+      ),
+    });
+  }, [colors.secondary, navigation, params.id]);
 
   if (!plan) {
     return null;
