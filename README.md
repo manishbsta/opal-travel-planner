@@ -1,4 +1,4 @@
-# Opal Travl Planner
+# Opal Travel Planner
 
 Opal Travel Planner is a mobile application that helps you plan and organize your travel plans effectively.
 
