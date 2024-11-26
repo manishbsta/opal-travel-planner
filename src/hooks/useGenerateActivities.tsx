@@ -6,6 +6,7 @@ import { Plan } from '@src/types/plan';
 import { calculateDistance } from '@src/utils/calculate-distance';
 import { generateGptPrompt } from '@src/utils/create-gpt-prompt';
 import axios, { isAxiosError } from 'axios';
+import * as Haptics from 'expo-haptics';
 import React from 'react';
 
 const useGenerateActivities = () => {
@@ -66,11 +67,11 @@ const useGenerateActivities = () => {
 
       const payload: Plan = { ...plan, activities };
       dispatch(updatePlan(JSON.stringify(payload)));
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      Haptics.selectionAsync();
     } catch (error) {
       if (isAxiosError(error)) {
         setError(error.response?.data.error?.message);
+        return;
       }
       setError('An error occurred while generating activities.');
     } finally {

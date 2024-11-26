@@ -38,9 +38,9 @@ export const useAutocomplete = () => {
     } catch (error) {
       if (isAxiosError(error)) {
         console.log(error.response?.data);
-      } else {
-        setError('An error occurred while fetching data.');
       }
+
+      setError('An error occurred while fetching locations.');
     } finally {
       setLoading(false);
     }

@@ -31,11 +31,13 @@ const Onboarding = () => {
 
   const readyToNavigate = index >= 2;
 
+  // run side-effect according to the offset value
   const observeOffsetX = (offsetValue: number) => {
     const currentIndex = Math.round(offsetValue / wW);
     setIndex(currentIndex);
   };
 
+  // see the changes in translation x
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: e => {
       offsetX.value = e.contentOffset.x;
